@@ -1,0 +1,18 @@
+Exemple de requête SQL
+
+
+SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit;
+
+
+
+SELECT DISTINCT c.nom, p.designation 
+FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p 
+ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit
+WHERE c.nom = 'BUGUET';
+
+
+
+SELECT DISTINCT c.nom, p.designation 
+FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p 
+ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit
+WHERE p.designation = 'BADOIT';
