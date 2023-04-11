@@ -2,7 +2,7 @@
     // --- VillesSelect.php
     // Caché sinon erreur ?? (présent dans le code du prof)
     // header("Content-Type: text/html; charset=UTF-8");
-    // Gérer les exceptions bla
+    // Gérer les exceptions
     try {
         // Connexion
         // Le mode utilisé est le mode FETCH_NUM (chaque enregistrement est vu comme un tableau ordinal).
