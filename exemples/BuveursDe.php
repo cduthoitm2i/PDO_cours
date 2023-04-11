@@ -11,6 +11,9 @@ try {
     // Le tuyau est en UTF8
     $cnx->exec("SET NAMES 'UTF8'");
 
+
+    
+
     // Préparation et exécution du SELECT SQL
     // Jointure de deux tables (villes et pays qui ont un identifiant commun)
     // Important, il faut que les tables soient liées entre elle dans Concepteur de phpMyAdmin
