@@ -10,7 +10,7 @@
         // PDO est la clé d'accès à la bdd
         // dbname correspond au nom de la bdd déclaré dans Myphpadmin
         // Le port est facultatif
-        $pdo = new PDO("mysql:host=localhost;port=3306;dbname=cours;", "root", "");
+        $pdo = new PDO("mysql:host=127.0.0.1;port=3306;dbname=cours;", "root", "");
         // Configure un attribut PDO 
         // PDO::ATTR_ERRMODE
         // Le mode pour reporter les erreurs de PDO. Peut prendre une des valeurs suivantes : 
