@@ -2,6 +2,7 @@
 // BuveursDe.php
 // Déclaration d'une variable et affectation d'une chaîne vide
 $contenuSelect = "";
+$contenuProduit = "";
 // On va essayer d'exécuter les commandes qui se trouvent entre le TRY et CATCH
 try {
     // Connexion
@@ -19,14 +20,22 @@ try {
     // $select= "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit";
     // On affecte une variable $designation qui correspond à WHERE p.designation ='$designation' de la variable $select (en bout de ligne)
     $designation = filter_input(INPUT_GET, 'designation');
-
     // Requête 2 : on affiche tous les clients en sélectionnant un type de produit (voir la saisie dans le champ input)
     //  Si on saisi "Badoit", on a 4 clients affichés, si on saisit "Evian", on a 3 clients affichés, etc.
     // Ajouter d'une option, si rien n'est saisi, on affiche tout
     $select = "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit WHERE p.designation ='$designation'";
     // exécution du SELECT SQL
     $curseur = $cnx->query($select);
-
+    // Ajout du compteur pour afficher toutes les balises <option>...</option>
+    
+    foreach ($curseur as $enregistrement) {
+        // Récupération des valeurs par concaténation et interpolation
+       
+        for ($i = $curseur; $i <= $enregistrement; $i++) {
+        }
+        $contenuProduit .= "<option name='$designation'>$designation</option>\n";
+        
+    }
 
     foreach ($curseur as $enregistrement) {
         // Récupération des valeurs par concaténation et interpolation
@@ -60,7 +69,10 @@ $cnx = null;
         <!-- Attention, la valeur name="designation" doit bien correspondre au nom de la variable définie plus haut -->
         <!--<input type="text" name="designation">-->
         <select name="designation">
-            <option value="<?php ?>"></option>
+            <?php 
+            // Affichage du contenu
+            echo $contenuProduit; 
+            ?>
         </select>
         <input type='submit' value='Envoyer'>
     </form>

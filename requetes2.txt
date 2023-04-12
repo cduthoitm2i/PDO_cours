@@ -1,0 +1,12 @@
+Exemple de requête SQL
+
+
+SELECT nom_pays, nom_ville FROM villes JOIN pays ON pays.id_pays = villes.id_pays;
+ 
+SELECT * FROM clients WHERE id_client = 1 OR true;
+ 
+SELECT * FROM clients_bis c;
+ 
+CREATE TABLE clients_bis AS SELECT * FROM clients;
+ 
+DELETE FROM clients_bis WHERE id_client = 1 OR TRUE;
