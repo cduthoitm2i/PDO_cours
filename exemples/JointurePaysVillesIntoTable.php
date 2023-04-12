@@ -16,8 +16,9 @@ try {
     // Important, il faut que les tables soient liées entre elle dans Concepteur de phpMyAdmin
     // Tri par pays (en dessous dans commentaire tri par ville)
     // Important : on ajoute une clé v et p pour ensuite l'utiliser comme id
-    $select= "SELECT *FROM villes v JOIN pays p ON v.id_pays = p.id_pays ORDER BY p.nom_pays";
-    //   $select= "SELECT *FROM villes v JOIN pays p ON v.id_pays = p.id_pays ORDER BY v.nom_ville";
+    // $select= "SELECT *FROM villes v JOIN pays p ON v.id_pays = p.id_pays ORDER BY p.nom_pays";
+    //  $select= "SELECT *FROM villes v JOIN pays p ON v.id_pays = p.id_pays ORDER BY v.nom_ville";
+    $select= "SELECT nom_pays, nom_ville FROM pays JOIN villes ON pays.id_pays = villes.id_pays";
     // exécution du SELECT SQL
     $curseur = $cnx->query($select);
     // Un enregistrement est un tableau ordinal

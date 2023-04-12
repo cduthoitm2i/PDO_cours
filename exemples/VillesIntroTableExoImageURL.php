@@ -24,7 +24,7 @@ try {
         $contenuSelect .= "<td>" . $enregistrement["cp"] . "</td>\n";
         $contenuSelect .= "<td>$enregistrement[1]</td>\n"; // ou $contenuSelect .= "<td>$enregistrement["nom_ville"]</td>\n";
         $contenuSelect .= "<td><a href='http://" . $enregistrement["site"] . "' target='_blank'>" . $enregistrement["site"] . "</a></td>\n";
-        if ($enregistrement[3] == "" &  $enregistrement[3] == NULL & !file_exists("../img/". $enregistrement[3])) {
+        if ($enregistrement[3] == "" ||  $enregistrement[3] == NULL || !file_exists("./img/". $enregistrement[3])) {
             $contenuSelect .= "<td><img width='150' src='./img/pas_de_photo.jpg' alt='Photo'></td>\n";
         } else {
             $contenuSelect .= "<td><img width='150' alt='image' src='./img/" . $enregistrement[3] . "'></td>\n";

@@ -21,17 +21,18 @@ try {
     // exécution du SELECT SQL
     $curseur = $cnx->query($select);
 
-    $contenuSelect .= "<form method='POST'><input type='text'>\n";
+
+
+
     foreach ($curseur as $enregistrement) {
         // Récupération des valeurs par concaténation et interpolation
-       
-        for ($i = $curseur; $i <= $enregistrement; $i++) {
-        }
-        $contenuSelect .= "<option>$enregistrement[0]</option>\n"; // ou $contenuSelect .= "<td>$enregistrement["nom_ville"]</td>\n";
-        
-    }
-    
-    $contenuSelect .= "</input>&nbsp;<input type='submit' value='Envoyer'>\n</form>";
+
+        $contenuSelect .= "<tr>\n";
+        $contenuSelect .= "<td>" . $enregistrement[0] . "</td>\n";
+        $contenuSelect .= "<td>$enregistrement[1]</td>\n";
+        $contenuSelect .= "</tr>\n";
+    }  
+
 
 
 
@@ -64,6 +65,14 @@ $cnx = null;
     </head>
 
     <body>
+    <form action="">
+        <input type="text" name="designation">
+        <input type='submit' value='Envoyer'>
+    </form>
+    <br>
+    <br>
+
+
     <table border="1">
             <thead>
                 <tr>

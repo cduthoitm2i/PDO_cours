@@ -18,6 +18,8 @@ try {
     // Un enregistrement est un tableau ordinal
     //$curseur->setFetchMode(PDO::FETCH_NUM);
     // On boucle sur les lignes en récupérant le contenu des colonnes 1 et 2
+
+
     foreach ($curseur as $enregistrement) {
         // Récupération des valeurs par concaténation et interpolation
         $contenuSelect .= "<tr>\n";
