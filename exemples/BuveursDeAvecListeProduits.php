@@ -1,8 +1,7 @@
 <?php
-// BuveursDe.php
+// BuveursDeAvecListeProduits.php
 // Déclaration d'une variable et affectation d'une chaîne vide
 $contenuSelect = "";
-$contenuProduit = "";
 // On va essayer d'exécuter les commandes qui se trouvent entre le TRY et CATCH
 try {
     // Connexion
@@ -30,11 +29,7 @@ try {
     
     foreach ($curseur as $enregistrement) {
         // Récupération des valeurs par concaténation et interpolation
-       
-        for ($i = $curseur; $i <= $enregistrement; $i++) {
-        }
-        $contenuProduit .= "<option name='$designation'>$designation</option>\n";
-        
+       $contenuSelect .= "<option name='$designation'>$designation</option>\n";
     }
 
     foreach ($curseur as $enregistrement) {
@@ -61,7 +56,7 @@ $cnx = null;
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>BuveursDe.php</title>
+        <title>BuveursDeAvecListeProduits</title>
     </head>
 
     <body>
@@ -71,7 +66,7 @@ $cnx = null;
         <select name="designation">
             <?php 
             // Affichage du contenu
-            echo $contenuProduit; 
+            echo $contenuSelect; 
             ?>
         </select>
         <input type='submit' value='Envoyer'>
