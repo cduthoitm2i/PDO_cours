@@ -18,23 +18,9 @@ try {
     // Requête de test dans phpMyAdmin : SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit;
     // La requête est ensuite copiée dans $select
     $select= "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit";
+    // $select = "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit WHERE p.designation = 'EVIAN'; ";
     // exécution du SELECT SQL
     $curseur = $cnx->query($select);
-
-
-
-
-    foreach ($curseur as $enregistrement) {
-        // Récupération des valeurs par concaténation et interpolation
-
-        $contenuSelect .= "<tr>\n";
-        $contenuSelect .= "<td>" . $enregistrement[0] . "</td>\n";
-        $contenuSelect .= "<td>$enregistrement[1]</td>\n";
-        $contenuSelect .= "</tr>\n";
-    }  
-
-
-
 
 
     foreach ($curseur as $enregistrement) {
