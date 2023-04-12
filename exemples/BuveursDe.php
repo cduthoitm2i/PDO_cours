@@ -12,13 +12,16 @@ try {
     $cnx->exec("SET NAMES 'UTF8'");
 
     // Préparation et exécution du SELECT SQL
-    // Jointure de deux tables (villes et pays qui ont un identifiant commun)
     // Important, il faut que les tables soient liées entre elle dans Concepteur de phpMyAdmin
-    // Tri par pays (en dessous dans commentaire tri par ville)
     // Requête de test dans phpMyAdmin : SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit;
     // La requête est ensuite copiée dans $select
-    $select= "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit";
-    // $select = "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit WHERE p.designation = 'EVIAN'; ";
+    // Requête 1 : on affiche tous les clients et produits 
+    // $select= "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit";
+    // On affecte une variable $designation qui correspond à WHERE p.designation ='$designation' de la variable $select (en bout de ligne)
+    $designation = filter_input(INPUT_GET, 'designation');
+    // Requête 2 : on affiche tous les clients en sélectionnant un produit (voir la saisie dans le champ input)
+    //  Si on saisi "Badoit", on a 4 clients affichés, si on saisit "Evian", on a 3 clients affichés
+    $select = "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit WHERE p.designation ='$designation'";
     // exécution du SELECT SQL
     $curseur = $cnx->query($select);
 
@@ -52,6 +55,7 @@ $cnx = null;
 
     <body>
     <form action="">
+        <!-- Attention, la valeur name="designation" doit bien correspondre au nom de la variable définie plus haut -->
         <input type="text" name="designation">
         <input type='submit' value='Envoyer'>
     </form>
