@@ -8,81 +8,145 @@
     <title>FicheProduit.php</title>
 </head>
 <?php
-    try {
-        // Connexion
-        $cnx = new PDO("mysql:host=localhost;port=3306;dbname=cours;", "root", "");
-        // Les erreurs sont gérées comme des exceptions
-        $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // Le tuyau est en UTF8
-        $cnx->exec("SET NAMES 'UTF8'");
-    
+try {
+    // Connexion
+    $pdo = new PDO("mysql:host=localhost;port=3306;dbname=cours;", "root", "");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->exec("SET NAMES 'UTF8'");
+
+    $select = "SELECT designation FROM produits";
+
+    $curseur = $pdo->query($select);
+    $curseur->setFetchMode(PDO::FETCH_NUM);
+
+    $contenuListe = "";
+    // On boucle sur les lignes en récupérant le contenu de la 1e colonnes
+    foreach ($curseur as $enregistrement) {
+        // Récupération des valeurs par concaténation et interpolation
+        $contenuListe .= "<option>";
+        $contenuListe .= "$enregistrement[0]";
+        $contenuListe .= "</option>\n\n";
+    }
+
+    // Fermeture du curseur (non facultatif)
+    $curseur->closeCursor();
+?>
+
+<?php
+    $contenuTable = "";
+    /* Sélecteur SQL
+         * SELECT DISTINCT clients.nom, produits.designation
+          FROM ((cours.cdes cdes
+          INNER JOIN cours.clients clients
+          ON (cdes.id_client = clients.id_client))
+          INNER JOIN cours.ligcdes ligcdes ON (ligcdes.id_cde = cdes.id_cde))
+          INNER JOIN cours.produits produits
+          ON (ligcdes.id_produit = produits.id_produit)
+          WHERE (produits.designation = 'Evian')
+         */
+
+    $designation = filter_input(INPUT_GET, "designation");
+
+    if ($designation != null) {
+        $select = "SELECT DISTINCT id_produit, designation, prix, qte_stockee FROM produits WHERE id_produit;";
+
         // Préparation et exécution du SELECT SQL
-        $select = "SELECT cp, nom_ville, site, photo, id_pays FROM villes";
-        // exécution du SELECT SQL
-        $curseur = $cnx->query($select);
-        // Un enregistrement est un tableau ordinal
-        //$curseur->setFetchMode(PDO::FETCH_NUM);
+        //$select = "SELECT cp, nom_ville FROM villes";
+        $curseur = $pdo->query($select);
+        $curseur->setFetchMode(PDO::FETCH_NUM);
+        $contenuID = 0;
+        $contenuPrix = 0;
+        $contenuStock = 0;
+        $contenuPhoto = 0;
+
+        // On prépare l'affichage du tableau selon le choix du menu déroulant
         // On boucle sur les lignes en récupérant le contenu des colonnes 1 et 2
-        // On utilise GET pour récupérer en même temps l'information du cp qui est envoyé dans le lien internet (bouton Envoyer)
-        $contenuSelect .= "<form method='GET'><label>Ville&nbsp;? </label><select name='ville' id='ville'>\n";
         foreach ($curseur as $enregistrement) {
             // Récupération des valeurs par concaténation et interpolation
-            $contenuSelect .= "<option value='$enregistrement[0]'>$enregistrement[1]</option>\n"; // ou $contenuSelect .= "<td>$enregistrement["nom_ville"]</td>\n";
-           }
-        
-        $contenuSelect .= "</select>&nbsp;<input type='submit' value='Envoyer'>\n</form>";
+            $contenuID .= "$enregistrement[0]\n";
+            $contenuPrix .= "$enregistrement[2]&nbsp;€\n";
+            $contenuStock .= "$enregistrement[3]\n";
+            $contenuPhoto .= "<img width='150' alt='image' src='./img/" . $enregistrement[3] . "'>\n";
+
+        }
+
         // Fermeture du curseur (facultatif)
         $curseur->closeCursor();
     }
-    // Gestion des erreurs
-    catch (PDOException $e) {
-        $contenuSelect = "Echec de l'exécution : " . $e->getMessage();
-    }
-    
-    // Déconnexion (facultative)
-    $cnx = null;
+} /// try
+// Gestion des erreurs
+catch (PDOException $e) {
+    $contenuSelect = "Echec de l'exécution : " . $e->getMessage();
+} /// catch
+// Déconnexion (facultative)
+$pdo = null;
 ?>
+<!-- Affichage du sélecteur -->
+
 <body>
-    <form action="" method="">
-        <label for="">Liste des produits&nbsp;: </label>
-        <select name="designation" id="">
+    <form action="" method="GET">
+        <select name="designation">
             <?php
-            echo "$contenu";
+            echo $contenuListe;
             ?>
         </select>
-        <input type="submit" value="valider">
+        <input type="submit" value="Valider" />
     </form>
     <br>
     <h1>Fiche produit</h1>
 
-        <table>
-            <tbody>
-                <tr>
-                    <td>ID produit&nbsp;:</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Désignation&nbsp;:</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Prix&nbsp;:</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Stock&nbsp;:</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                </tr>
+    <table>
+        <tbody>
+            <tr>
+                <td>Code produit&nbsp;:</td>
+                <td>
+                    <?php
+                    // Affichage du contenu
+                    echo $contenuID;
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Désignation&nbsp;:</td>
+                <td>
+                 <?php
+                    // Affichage du contenu
+                    echo $designation;
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td>Prix&nbsp;:</td>
+                <td>
                 <?php
-                // Affichage du contenu
-                echo $contenuSelect;
-                ?>
-            </tbody>
-        </table>
-    </body>
+                    // Affichage du contenu
+                    echo $contenuPrix;
+                    ?>
+                </td>
+                </td>
+            </tr>
+            <tr>
+                <td>Stock&nbsp;:</td>
+                <td>
+                <?php
+                    // Affichage du contenu
+                    echo $contenuStock;
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                <?php
+                    // Affichage du contenu
+                    echo $contenuPhoto;
+                    ?>
+                </td>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
 
 
 </html>

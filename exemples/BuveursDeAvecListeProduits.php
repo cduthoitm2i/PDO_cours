@@ -1,58 +1,7 @@
-<?php
-// BuveursDeAvecListeProduits.php
-// Déclaration d'une variable et affectation d'une chaîne vide
-$contenuSelect = "";
-// On va essayer d'exécuter les commandes qui se trouvent entre le TRY et CATCH
-try {
-    // Connexion
-    $cnx = new PDO("mysql:host=localhost;port=3306;dbname=cours;", "root", "");
-    // Les erreurs sont gérées comme des exceptions
-    $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // Le tuyau est en UTF8
-    $cnx->exec("SET NAMES 'UTF8'");
-
-    // Préparation et exécution du SELECT SQL
-    // Important, il faut que les tables soient liées entre elle dans Concepteur de phpMyAdmin
-    // Requête de test dans phpMyAdmin : SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit;
-    // La requête est ensuite copiée dans $select
-    // Requête 1 : on affiche tous les clients et produits 
-    // $select= "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit";
-    // On affecte une variable $designation qui correspond à WHERE p.designation ='$designation' de la variable $select (en bout de ligne)
-    $designation = filter_input(INPUT_GET, 'designation');
-    // Requête 2 : on affiche tous les clients en sélectionnant un type de produit (voir la saisie dans le champ input)
-    //  Si on saisi "Badoit", on a 4 clients affichés, si on saisit "Evian", on a 3 clients affichés, etc.
-    // Ajouter d'une option, si rien n'est saisi, on affiche tout
-    $select = "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit WHERE p.designation ='$designation'";
-    // exécution du SELECT SQL
-    $curseur = $cnx->query($select);
-    // Ajout du compteur pour afficher toutes les balises <option>...</option>
-    
-    foreach ($curseur as $enregistrement) {
-        // Récupération des valeurs par concaténation et interpolation
-       $contenuSelect .= "<option name='$designation'>$designation</option>\n";
-    }
-
-    foreach ($curseur as $enregistrement) {
-        // Récupération des valeurs par concaténation et interpolation
-        $contenuSelect .= "<tr>\n";
-        $contenuSelect .= "<td>" . $enregistrement[0] . "</td>\n";
-        $contenuSelect .= "<td>" . $enregistrement[1] . "</td>\n";
-        $contenuSelect .= "</tr>\n";
-    }
-
-
-    // Fermeture du curseur (facultatif)
-    $curseur->closeCursor();
-}
-// Gestion des erreurs
-catch (PDOException $e) {
-    $contenuSelect = "Echec de l'exécution : " . $e->getMessage();
-}
-
-// Déconnexion (facultative)
-$cnx = null;
-?>
 <!DOCTYPE html>
+<!--
+BuveursDeAvecListeProduits.php
+-->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -60,34 +9,103 @@ $cnx = null;
     </head>
 
     <body>
-    <form action="">
-        <!-- Attention, la valeur name="designation" doit bien correspondre au nom de la variable définie plus haut -->
-        <!--<input type="text" name="designation">-->
-        <select name="designation">
-            <?php 
-            // Affichage du contenu
-            echo $contenuSelect; 
+        <?php
+        try {
+            // Connexion
+            $pdo = new PDO("mysql:host=localhost;port=3306;dbname=cours;", "root", "");
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->exec("SET NAMES 'UTF8'");
+
+            $select = "SELECT designation FROM produits";
+
+            $curseur = $pdo->query($select);
+            $curseur->setFetchMode(PDO::FETCH_NUM);
+
+            $contenuListe = "";
+            // On boucle sur les lignes en récupérant le contenu de la 1e colonnes
+            foreach ($curseur as $enregistrement) {
+                // Récupération des valeurs par concaténation et interpolation
+                $contenuListe .= "<option>";
+                $contenuListe .= "$enregistrement[0]";
+                $contenuListe .= "</option>\n\n";
+            }
+
+            // Fermeture du curseur (non facultatif)
+            $curseur->closeCursor();
             ?>
-        </select>
-        <input type='submit' value='Envoyer'>
-    </form>
-    <br>
-    <br>
 
+            <?php
+            $contenuTable = "";
+            /* Sélecteur SQL
+             * SELECT DISTINCT clients.nom, produits.designation
+              FROM ((cours.cdes cdes
+              INNER JOIN cours.clients clients
+              ON (cdes.id_client = clients.id_client))
+              INNER JOIN cours.ligcdes ligcdes ON (ligcdes.id_cde = cdes.id_cde))
+              INNER JOIN cours.produits produits
+              ON (ligcdes.id_produit = produits.id_produit)
+              WHERE (produits.designation = 'Evian')
+             */
 
-    <table border="1">
+            $designation = filter_input(INPUT_GET, "designation");
+            
+            if ($designation != null) {
+                $select = "SELECT DISTINCT clients.nom, produits.designation FROM ((cours.cdes cdes INNER JOIN cours.clients clients ON (cdes.id_client = clients.id_client)) INNER JOIN cours.ligcdes ligcdes ON (ligcdes.id_cde = cdes.id_cde)) INNER JOIN cours.produits produits ON (ligcdes.id_produit = produits.id_produit) WHERE (produits.designation = '$designation')";
+
+                // Préparation et exécution du SELECT SQL
+                //$select = "SELECT cp, nom_ville FROM villes";
+                $curseur = $pdo->query($select);
+                $curseur->setFetchMode(PDO::FETCH_NUM);
+                
+                // On prépare l'affichage du tableau selon le choix du menu déroulant
+                // On boucle sur les lignes en récupérant le contenu des colonnes 1 et 2
+                foreach ($curseur as $enregistrement) {
+                    // Récupération des valeurs par concaténation et interpolation
+                    $contenuTable .= "<tr>\n";
+                    $contenuTable .= "<td>$enregistrement[0]</td>\n";
+                    $contenuTable .= "<td>$enregistrement[1]</td>\n";
+                    $contenuTable .= "</tr>\n";
+                }
+
+                // Fermeture du curseur (facultatif)
+                $curseur->closeCursor();
+            }
+        } /// try
+        // Gestion des erreurs
+        catch (PDOException $e) {
+            $contenuSelect = "Echec de l'exécution : " . $e->getMessage();
+        } /// catch
+        // Déconnexion (facultative)
+        $pdo = null;
+        ?>
+        <!-- Affichage du sélecteur -->
+        <form action="" method="GET">
+            <select name="designation">
+                <?php
+                echo $contenuListe;
+                ?>
+            </select>
+            <input type="submit" value="Valider" />
+        </form>
+        
+        <br/>
+        <!-- Affichage du tableau -->
+        <table border="1">
             <thead>
                 <tr>
-                    <th>Client</th>
+                    <th>Nom</th>
                     <th>Produit</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                // Affichage du contenu
-                echo $contenuSelect;
+                // On test d'abord que la variable existe
+                if(isset($contenuTable)){
+                    echo $contenuTable;
+                }
                 ?>
             </tbody>
         </table>
+
     </body>
 </html>
