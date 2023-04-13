@@ -23,12 +23,14 @@ try {
     //  Si on saisi "Badoit", on a 4 clients affichés, si on saisit "Evian", on a 3 clients affichés, etc.
     // Ajouter d'une option, si rien n'est saisi, on affiche tout
     if ($designation == "" ||  $designation == NULL) {
+        // "c, p, cd et l" sont des préfixes
         $select= "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit";
     } 
     else {
         $select = "SELECT DISTINCT c.nom, p.designation FROM clients c JOIN cdes cd JOIN ligcdes l JOIN produits p ON c.id_client = cd.id_client AND cd.id_cde = l.id_cde AND l.id_produit = p.id_produit WHERE p.designation ='$designation'";
     }
- // exécution du SELECT SQL
+    // On peut faire la même chose avec un sélecteur (voir le fichier corrigé dans le dossier des corrigés dans le fichier portant le même nom, voir LIKE et %)
+    // exécution du SELECT SQL
     $curseur = $cnx->query($select);
 
 
@@ -60,9 +62,9 @@ $cnx = null;
     </head>
 
     <body>
-    <form action="">
+    <form action="" method="GET">
         <!-- Attention, la valeur name="designation" doit bien correspondre au nom de la variable définie plus haut -->
-        <input type="text" name="designation">
+        <input type="text" name="designation" placeholder="Désignation ?">
         <input type='submit' value='Envoyer'>
     </form>
     <br>
@@ -78,8 +80,10 @@ $cnx = null;
             </thead>
             <tbody>
                 <?php
+                if(isset($contenuSelect)) {
                 // Affichage du contenu
                 echo $contenuSelect;
+                }
                 ?>
             </tbody>
         </table>
