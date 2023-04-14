@@ -16,7 +16,7 @@ if ($btSup != null) {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $pdo->exec("SET NAMES 'UTF8'");
             /*
-             * INSERTION
+             * SUPPRESSION
              */
             // requête SQL
             // On supprime donc à l'aide de cet syntaxe
@@ -26,6 +26,8 @@ if ($btSup != null) {
             // paramètre PDO::PARAM_STR pas obligatoire
             $statement->bindParam(1, $cp, PDO::PARAM_STR);
             $statement->execute();
+
+
             // Retourne le nombre de lignes affectées par le dernier appel à la fonction PDOStatement::execute() 
             // Dans notre cas, ce sera toujours 1 puisque l'on ajoute une seule nouvelle entrée
             $message .= $statement->rowcount() . " enregistrement(s) supprimé(s)<br>";
@@ -41,4 +43,3 @@ if ($btSup != null) {
     }
 }
 include './VillesDeletePrepareeIHM.php';
-?>

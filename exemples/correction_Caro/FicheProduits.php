@@ -37,11 +37,11 @@ try {
         $select = "SELECT id_produit, designation, prix, qte_stockee, photo FROM produits WHERE id_produit=?";
 
         // Comme on a un WHERE on utilise la methode (prepare,bind,execute)
-        //  On prépare
+        // On prépare
         $curseur = $pdo->prepare($select);
-        //     //On bind les paramètres
+        // On bind les paramètres
         $curseur->bindParam(1, $idProduit);
-        //     // On execute le code
+        // On execute le code
         $curseur->execute();
 
         // On boucle sur les lignes en récupérant le contenu des colonnes 1 et 2
@@ -78,10 +78,6 @@ try {
         $curseur->closeCursor();
     }
     // fin du if ifproduits different de null
-
-
-
-
 
     $curseurOption->closeCursor();
 }
