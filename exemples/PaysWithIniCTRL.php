@@ -1,7 +1,10 @@
 <?php
  /* PaysWithIniCTRL.php*/
 
- require_once './lib/Connexion.php';
+/* Nouvelle méthode de connexion avec une fonction et un fichier ini */
+/* ATTENTION : il est impératif que le fichier ini soit bien placé dans le dossier de travail (ou le site distant) dans le chemin correspondant à l'appel des fichiers */
+/* exemple : /www/ProjetPersoInfoAvions/conf/cours.ini */ 
+require_once './lib/Connexion.php';
 /* On se connecte à l'aide de la fonction SeConnecter définie dans Connexion.php et on appelle le fichier de configuration de notre bd avec cours.ini*/
 $pdo = seConnecter("./conf/cours.ini");
 

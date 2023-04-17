@@ -2,7 +2,7 @@
 /**
  * ../lib/Connexion.php : une bibliothèque
  *
- * seConnecter() : PDO(à partir d'un fichier ini)
+ * seConnecter() : PDO (à partir d'un fichier ini)
  * seDeconnecter() : void
  */
 
