@@ -83,31 +83,6 @@ function insert(PDO $pdo, array $tAttributesValues): int {
 /**
  *
  * @param PDO $pdo
- * @param array $tAttributesValues
- * @return int
- */
-function update(PDO $pdo, string $id, array $tAttributesValues): int {
-    $affected = 0;
-    try {
-        $sql = "UPDATE villes SET nom_ville = ?, id-pays = ? WHERE cp = ?";
-
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(1, $tAttributesValues["nom_ville"]);
-        $statement->bindValue(2, $tAttributesValues["id_pays"]);
-        $statement->bindValue(3, $id);
-
-        $statement->execute();
-        $affected = $statement->rowcount();
-    } catch (PDOException $e) {
-        $affected = -1;
-    }
-    return $affected;
-}
-
-
-/**
- *
- * @param PDO $pdo
  * @param string $id
  * @return int
  */
@@ -128,6 +103,21 @@ function delete(PDO $pdo, string $id): int {
 }
 
 
+function update(PDO $pdo, string $id, array $tAttributesValues): int {
+    $affected = 0;
+    try {
+        $sql = "UPDATE villes SET nom_ville = ?, id_pays = ? WHERE cp = ?";
 
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(1, $tAttributesValues["nom_ville"]);
+        $statement->bindValue(2, $tAttributesValues["id_pays"]);
+        $statement->bindValue(3, $id);
+        $statement->execute();
 
+        $affected = $statement->rowcount();
+    } catch (PDOException $e) {
+        $affected = -1;
+    }
+    return $affected;
+}
 ?>

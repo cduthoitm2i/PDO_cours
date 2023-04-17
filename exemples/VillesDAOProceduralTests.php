@@ -68,13 +68,14 @@ echo "Insertion : $affected";
 echo "<hr>update<hr>";
 //$pdo->beginTransaction();
 $tAttributesValues = array();
-$tAttributesValues['cp'] = "59000";
-$tAttributesValues['nom_ville'] = "Lille**";
+$tAttributesValues['nom_ville'] = "Villeneuve";
 $tAttributesValues['id_pays'] = "033";
 // Appel de la fonction update
-$affected = update($pdo, $tAttributesValues);
-echo "Update : $affected";
+$affected = update($pdo, "99999", $tAttributesValues);
+echo "Modification : $affected";
 //$pdo->commit();
+
+
 
 // Cinquième fonction
 // on utilise la fonction insert (ligne 89) définie dans le fichier VillesDAOProcedural.php
