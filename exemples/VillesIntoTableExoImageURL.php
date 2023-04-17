@@ -28,10 +28,10 @@ try {
         // <a href="https://example.com">Website</a>
         $contenuSelect .= "<td><a href='http://" . $enregistrement[2] . "' target='_blank' />le site de $enregistrement[1]</a></td>\n";
         // La balise IMG <img src='chemin/ressource' alt='Texte alternatif' width='number' />
-        if ($enregistrement[3] == "" || $enregistrement[3] == NULL || !file_exists("../images/" . $enregistrement[3])) {
-            $contenuSelect .= "<td><img src='../images/pas_de_photo.png' width='100' alt='Photo'/></td>\n";
+        if ($enregistrement[3] == "" || $enregistrement[3] == NULL || !file_exists("./img/" . $enregistrement[3])) {
+            $contenuSelect .= "<td><img src='./img/pas_de_photo.jpg' width='100' alt='Photo'/></td>\n";
         } else {
-            $contenuSelect .= "<td><img src='../images/$enregistrement[3]' width='100' alt='Photo'/></td>\n";
+            $contenuSelect .= "<td><img src='./img/$enregistrement[3]' width='100' alt='Photo'/></td>\n";
         }
         $contenuSelect .= "<td>" . $enregistrement[4] . "</td>\n";
         $contenuSelect .= "</tr>\n";
