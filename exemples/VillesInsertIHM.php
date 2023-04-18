@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <!--
 VillesInsertIHM.php
 -->
@@ -9,16 +9,17 @@ VillesInsertIHM.php
     </head>
     <body>
         <h3>INSERT</h3>
-        <form action="VillesInsertCTRL.php" method="post">
+        <!-- Requête vers le contrôleur -->
+        <form action="../controllers/VillesInsertCTRL.php" method="post" id="formInsert">
             <label>CP </label>
-            <!-- Il faut modifier la valeur de la value sinon au second passage il y a une erreur car l'info existe dans la table BD-->
-            <input type="text" name="cp" value="75010" size="5" />
+            <input type="text" name="cp" id="cp" value="75021" size="5" />
             <label>Ville </label>
-            <input type="text" name="nomVille" value="Paris 10" />
+            <input type="text" name="nomVille" id="nomVille" value="Paris 21" />
             <label>ID pays </label>
-            <input type="text" name="idPays" value="033" size="4" />
+            <input type="text" name="idPays" id="idPays" value="033" size="4" />
 
             <input type="submit" />
+<!--            <input type="button" value="Valider l'insertion" id="btInsert"/> -->
         </form>
 
         <br>
@@ -30,5 +31,22 @@ VillesInsertIHM.php
             }
             ?>
         </label>
+
+        <label id="messageJS"></label>
+
+        <script>
+            document.getElementById("btInsert").onclick = function () {
+                console.log("btInsert");
+                let cp = document.getElementById("cp").value;
+                let nomVille = document.getElementById("nomVille").value;
+                let idPays = document.getElementById("idPays").value;
+
+                if (cp === "" || nomVille === "" || idPays === "") {
+                    document.getElementById("messageJS").innerHTML = "Toutes les saisies sont obligatoires";
+                } else {
+                    document.getElementById("formInsert").submit();
+                }
+            };
+        </script>
     </body>
 </html>
