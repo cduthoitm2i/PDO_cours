@@ -8,7 +8,7 @@ $productSheet = "";
 
 // On essaie de travailler avec la BD
 try {
-    // Connexionà la base de données
+    // Connexion à la base de données
     $pdo = new PDO("mysql:host=localhost;port=3306;dbname=cours;", "root", "");
     // Les erreurs sont gérées comme des exceptions (syntaxe type pour tous les cas)
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
