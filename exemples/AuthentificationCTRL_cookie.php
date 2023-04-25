@@ -8,6 +8,7 @@ $message = "";
 
 $pseudo = filter_input(INPUT_POST, "pseudo");
 $mdp = filter_input(INPUT_POST, "mdp");
+$btReinitialiser = filter_input(INPUT_POST, "btReinitialiser");
 
 if ($pseudo != null && $mdp != null) {
     try {
@@ -35,14 +36,15 @@ if ($pseudo != null && $mdp != null) {
         } else {
             $message = "0K, vous êtes connecté(e)";
             // Ajout Cookie pour pseudo
-            $pseudo = filter_input(INPUT_GET, "pseudo");
-            $mdp = filter_input(INPUT_GET, "mdp");
-            setCookie("pseudo", $pseudo);
-            setCookie("mdp", $mdp);
-            echo "Le cookie PSEUDO a été créé : " . $pseudo;
-            echo "Le cookie MDP a été créé : " . $mdp;
-            //
-         }
+            setCookie("pseudo", $pseudo, 0, null, null, false, false);
+            setCookie("mdp", $mdp, 0, null, null, false, false);
+            // Ajout du contrôle sur le bouton Se souvenir de moi
+           
+            if($_POST["btReinitialiser"]) {
+                setCookie("pseudo", "");
+                setCookie("mdp", "");
+            }
+        }
         $curseur->closeCursor();
     } catch (Exception $e) {
         $message = "Erreur : " . $e->getMessage() . "<br>";
