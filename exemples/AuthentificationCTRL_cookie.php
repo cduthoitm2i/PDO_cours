@@ -26,7 +26,7 @@ if ($pseudo != null && $mdp != null) {
         // Valorisation des paramètres
         $curseur->bindParam(1, $pseudo);
         $curseur->bindParam(2, $mdp);
-        // Exécution du SELECT
+        // Exécution du SELECT (uniquement si déclaration avant $curseur)
         $curseur->execute();
         // Récupération ou pas d'un enregistrement
         // http://php.net/manual/fr/pdostatement.fetch.php
