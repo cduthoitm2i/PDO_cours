@@ -1,17 +1,11 @@
-id_produit;designation;prix;qte_stockee;photo;categorie
-1;Evian;0.8;10;evian.jpg;Eaux
-2;Badoit;1.1;50;badoit.jpg;Eaux
-3;Graves;13.2;10;graves.jpg;Vins
-4;Ruinart;40;10;ruinart.jpg;Champagnes
-5;Dom Pérignon;165;10;dom.jpg;Champagnes
-7;Picpoul;7.5;500;picpoul.jpg;Vins
-8;Piquemal;5.4;10;piquemal.jpg;Vins
-9;Coca;0.45;50;coca.jpg;Sodas
-10;Fanta;0.65;10;fanta.jpg;Sodas
-11;pepsi;0.5;10;pepsi.jpg;Sodas
-12;Vichy Saint-Yorre;2.1;0;;
-14;Saint-Amand;2.1;0;;
-16;Lille;2.1;0;;
-18;Test;1.5;0;;
-19;Test2;1;0;;
-20;;75021;0;;
+cp;nom_ville;site;photo;id_pays
+59000;Lille;www.lille.fr;lille.jpg;033
+59390;Ville nouvelle;;;034
+69000;Lyon;www.lyon.fr;lyon.jpg;033
+75010;Paris 10;;;033
+75011;Paris 11;www.paris.fr;paris.jpg;033
+75012;Paris 12;www.paris.fr;paris.jpg;033
+75019;Paris XIX;www.paris.fr;paris.jpg;033
+75023;Paris 21;;;033
+94100;Vincennes;;vincennes.jpg;033
+99998;Ville Neuve;;;033

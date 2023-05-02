@@ -15,9 +15,11 @@
         $sql = "SELECT * FROM produits";
         // Car pas de where
         $cursor = $pdo->query($sql);
+        //
         $array = $cursor->fetchAll();
         $tbody = "";
         for($i=0; $i<count($array);$i++){
+            $id_produit=$array[$i][0];
             $tbody .= "<tr>";
             $tbody .= "<td>";
             $tbody .= $array[$i][0];
@@ -29,8 +31,14 @@
             $tbody .= $array[$i][2];
             $tbody .= "</td>";
             $tbody .= "<td>";
-            $tbody .= "<a href='panierCTRL.php?id_produit=" . $array[$i][0] . ",designation=" . $array[$i][1] . ",prix=" . $array[$i][2] . "'><img height='50px' src='./img/caddie_gris.jpg' alt='Ajouter au caddie'></a>";
+            $tbody .= "<img height='50px' src='./img/" . $array[$i][4] . "'>";
             $tbody .= "</td>";
+            $tbody .= "<td style='text-align:center'>";
+            $tbody.= "<form>";
+            //$tbody.= "<button type='submit' name='id_produit' value='$idProduit' ><img src='./img/caddie_gris.jpg' width='70'></button>";
+            $tbody.="<a href='panierCTRL.php?id_produit=" . $array[$i][0] . "&designation=" . $array[$i][1] . "&prix=" . $array[$i][2] . "&photo=" . $array[$i][4] . "'><img height='50px' src='./img/caddie_gris.jpg' alt='Ajouter au caddie'></a>";
+            $tbody.= "</form>";
+            $tbody.= "</td>";
             $tbody .= "</tr>";
         }
     ?>
@@ -42,8 +50,9 @@
             <tr>
                 <th>Code produit</th>
                 <th>Désignation</th>
-                <th>Prix</th>
-                <th>Panier</th>
+                <th>Prix (€)</th>
+                <th>Photo</th>
+                <th>Ajouter au panier</th>
             </tr>
         </thead>
         <tbody>
@@ -53,5 +62,6 @@
                 ?>
         </tbody>
     </table>
+    <a href="panierView.php">Voir le panier</a>
 </body>
 </html>
