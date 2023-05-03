@@ -1,0 +1,100 @@
+[
+    {
+      "cp": "13000",
+      "nom_ville": "Marseille",
+      "site": " ",
+      "photo": "",
+      "id_pays": "033"
+    },
+    {
+      "cp": "24200",
+      "nom_ville": "Sarlat",
+      "site": " ",
+      "photo": "",
+      "id_pays": "033"
+    },
+    {
+      "cp": "24204",
+      "nom_ville": "Vitrac",
+      "site": null,
+      "photo": null,
+      "id_pays": "031"
+    },
+    {
+      "cp": "59000",
+      "nom_ville": "Lille",
+      "site": "www.lille.fr",
+      "photo": "lille.jpg",
+      "id_pays": "033"
+    },
+    {
+      "cp": "69000",
+      "nom_ville": "Lyon",
+      "site": "www.lyon.fr",
+      "photo": "lyon.jpg",
+      "id_pays": "033"
+    },
+    {
+      "cp": "75011",
+      "nom_ville": "Paris XI",
+      "site": "www.paris.fr",
+      "photo": "paris.jpg",
+      "id_pays": "033"
+    },
+    {
+      "cp": "75012",
+      "nom_ville": "Paris 12",
+      "site": "www.paris.fr",
+      "photo": "paris.jpg",
+      "id_pays": "033"
+    },
+    {
+      "cp": "75020",
+      "nom_ville": "Paris XX",
+      "site": " ",
+      "photo": "",
+      "id_pays": "033"
+    },
+    {
+      "cp": "78000",
+      "nom_ville": "Versailles",
+      "site": " ",
+      "photo": "",
+      "id_pays": "033"
+    },
+    {
+      "cp": "94000",
+      "nom_ville": "Créteil",
+      "site": null,
+      "photo": null,
+      "id_pays": "033"
+    },
+    {
+      "cp": "94100",
+      "nom_ville": "Vincennes",
+      "site": " ",
+      "photo": "",
+      "id_pays": "033"
+    },
+    {
+      "cp": "94200",
+      "nom_ville": "St Mandé",
+      "site": " ",
+      "photo": "",
+      "id_pays": "033"
+    },
+    {
+      "cp": "99391",
+      "nom_ville": "ROME",
+      "site": " ",
+      "photo": "",
+      "id_pays": "039"
+    },
+    {
+      "cp": "99392",
+      "nom_ville": "MILAN",
+      "site": " ",
+      "photo": "",
+      "id_pays": "039"
+    }
+  ]
