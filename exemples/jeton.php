@@ -10,9 +10,9 @@
 // Début de la fonction getRandomStringRandomInt
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringRandomInt()
-{   $length = 11;
+{   $length = 20;
     // On délimite le nombre de caractère pour le random_int (on reste sur de l'hexadécimale donc jusque la lettre F)
-    $stringSpace = '0123456789abcdef';
+    $stringSpace = '0123456789abcdefghijklmnopqrstuvwxyz[~!@#$%^&*()-_=+[]{};:,.<>/?]';
     // on déclare la variable $pieces comme contenant un string
     $pieces = [];
     // mb_strlen — Retourne la taille d'une chaîne avec un encodage sur 8 bit (pas obligatoire) et on supprime 
@@ -41,9 +41,9 @@ function getRandomStringRandomInt()
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringRand()
 {
-    $length = 11;
+    $length = 20;
     // On délimite le nombre de caractère pour le random (on reste sur de l'hexadécimale donc jusque la lettre F)
-    $stringSpace = '0123456789abcdef';
+    $stringSpace = '0123456789abcdefghijklmnopqrstuvwxyz[~!@#$%^&*()-_=+[]{};:,.<>/?]';
     // strlen — Retourne la taille d'une chaîne (soit dans l'exemple = 16)
     $stringLength = strlen($stringSpace);
     // on initialise la variable $randomString
@@ -71,9 +71,9 @@ function getRandomStringRand()
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringShuffle()
 {
-    $length = 11;
+    $length = 20;
     // On délimite le nombre de caractère pour le random (on reste sur de l'hexadécimale donc jusque la lettre F)
-    $stringSpace = '0123456789abcdef';
+    $stringSpace = '0123456789abcdefghijklmnopqrstuvwxyz[~!@#$%^&*()-_=+[]{};:,.<>/?]';
     // strlen — Retourne la taille d'une chaîne (soit dans l'exemple = 16)
     $stringLength = strlen($stringSpace);
     // str_repeat — Répète une chaîne, ceil — Arrondit au nombre supérieur la division de 11/16, soit 1
@@ -100,7 +100,7 @@ function getRandomStringShuffle()
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringBin2hex()
 {
-    $length = 11;
+    $length = 20;
     // function_exists — Indique si une fonction est définie (random_bytes)
     if (function_exists('random_bytes')) {
         // random_bytes — Récupère des octets aléatoires cryptographiquement sécurisés
@@ -128,10 +128,10 @@ function getRandomStringBin2hex()
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringMtrand()
 {
-    $length = 11;
+    $length = 20;
     // array_merge — Fusionne plusieurs tableaux en un seul, range — Crée un tableau contenant un intervalle d'éléments
     // On délimite de 0 à 9 pour les chiffres et de a à f pour les lettres
-    $keys = array_merge(range(0, 9), range('a', 'f'));
+    $keys = array_merge(range(0, 9), range('a', 'z'));
     // On initialise la variable $key à 0
     $key = "";
     // On crée une boucle qui affiche jusque 11 caractères (variable $length)
@@ -163,7 +163,7 @@ function getRandomStringMtrand()
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringSha1()
 {
-    $length = 11;
+    $length = 20;
     // Calcule le sha1 d'une chaîne de caractères et rand — Génère une valeur aléatoire
     // donc on crypte avec la méthode sha1 une valeur aléatoire
     $string = sha1(rand());
@@ -187,7 +187,7 @@ function getRandomStringSha1()
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringMd5()
 {
-    $length = 11;
+    $length = 20;
     // Calcule le sha1 d'une chaîne de caractères et rand — Génère une valeur aléatoire
     // donc on crypte avec la méthode md5 une valeur aléatoire
     $string = md5(rand());
@@ -211,7 +211,7 @@ function getRandomStringMd5()
 // On déclare le nombre de caractères (longueur de la chaine, soit 11 par exemple)
 function getRandomStringUniqid()
 {
-    $length = 11;
+    $length = 20;
     // uniqid — Génère un identifiant unique et rand — Génère une valeur aléatoire (mais numérique)
     // donc on génère une valeur unique sur un élément généré aléatoirement
     $string = uniqid(rand());

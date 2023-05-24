@@ -12,11 +12,15 @@ sha1_php_insert_select_delete
         <?php
         $message = "";
         // OK
-        $pwd = sha1("Pwd12345#"); // ad847e6f5693c0f5f74438286aea608433feda40
-        //// ?
-        //$pwd = hash("sha256", "Pwd12345#"); // a722d504f802a903c02b9cf94a8284c35e3ed6c471391a06d8802222d63303a5
-        // IRREVERSIBLE donc KO
-        // $pwd = password_hash("Pwd12345#", PASSWORD_DEFAULT);
+        // Méthode 1
+        //$pwd = sha1("Pwd12345#"); // ad847e6f5693c0f5f74438286aea608433feda40
+        // Méthode 2 (attention de bien augmenter la taille du string dans la BD)
+        // $pwd = hash("sha256", "Pwd12345#"); // a722d504f802a903c02b9cf94a8284c35e3ed6c471391a06d8802222d63303a5
+        // Méthode 3 (attention de bien augmenter la taille du string dans la BD)
+        //$pwd = hash("sha512", "Pwd12345#"); // a722d504f802a903c02b9cf94a8284c35e3ed6c471391a06d8802222d63303a5
+          // IRREVERSIBLE donc KO
+        // Méthode 3 (donc le SELECT ne fonctionne pas)
+        $pwd = password_hash("Pwd12345#", PASSWORD_DEFAULT);
         try {
             /*
              * Connexion
